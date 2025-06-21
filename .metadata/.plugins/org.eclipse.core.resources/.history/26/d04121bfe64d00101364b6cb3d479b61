@@ -1,0 +1,14 @@
+package in.ram.Controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class StockController {
+
+	
+	@GetMapping("path")
+	public String loadHomePage() {
+		return "index";
+	}
+	
+}

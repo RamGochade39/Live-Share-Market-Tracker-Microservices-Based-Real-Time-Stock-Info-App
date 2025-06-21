@@ -1,0 +1,8 @@
+package in.ram.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class StockServiceCaller {
+
+}

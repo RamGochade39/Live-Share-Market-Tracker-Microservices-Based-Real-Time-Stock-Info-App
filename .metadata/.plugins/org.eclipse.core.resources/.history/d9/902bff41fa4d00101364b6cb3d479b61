@@ -1,0 +1,20 @@
+package in.ram.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import in.ram.feign.FeignClientApp;
+import in.ram.model.StockData;
+
+@Service
+public class StockServiceCaller {
+	@Autowired
+	private FeignClientApp feign;
+	public ResponseEntity<?> getFromApi(String companySymbol) {
+		
+		
+
+		return null;
+	}
+}

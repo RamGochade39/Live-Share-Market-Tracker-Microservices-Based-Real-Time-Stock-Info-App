@@ -1,0 +1,302 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stock Search</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 2rem;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 90%;
+      text-align: center;
+      overflow-x: auto;
+      margin-bottom: 2rem;
+    }
+    details.stock-box {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 0.5rem 1rem;
+      margin-bottom: 1rem;
+    }
+    details.stock-box summary {
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0.5rem 0;
+    }
+    details.stock-box[open] summary {
+      color: #007bff;
+    }
+    .stock-list {
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      text-align: left;
+    }
+    .stock-list li {
+      display: flex;
+      align-items: baseline;
+      padding: 0.3rem 0;
+      font-size: 0.95rem;
+    }
+    .stock-list li span.symbol {
+      font-weight: bold;
+      min-width: 10ch;
+      margin-right: 1rem;
+    }
+    .stock-list li span.name {
+      flex: 1;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 0 auto 1rem;
+    }
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      text-align: center;
+      word-wrap: break-word;
+      white-space: normal;
+    }
+    th {
+      background: #007bff;
+      color: #fff;
+    }
+    tbody tr:nth-child(odd) {
+      background: #f9f9f9;
+    }
+    input[type="text"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      min-width: 150px;
+    }
+    input[type="submit"] {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      background: #007bff;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    input[type="submit"]:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter Stock Name</h2>
+    <form action="search" method="get">
+      <label for="stockName">Stock Name:</label>
+      <input type="text" id="stockName" name="stockName" required>
+      <input type="submit" value="Get Stock Info">
+    </form>
+
+     <details class="stock-box" open>
+      <summary>Top 100 Indian Stocks (NSE)</summary>
+      <ul class="stock-list">
+        <li><span class="symbol">ADANIENT</span><span class="name">Adani Enterprises</span></li>
+        <li><span class="symbol">ADANIPORTS</span><span class="name">Adani Ports & SEZ</span></li>
+        <li><span class="symbol">APOLLOHOSP</span><span class="name">Apollo Hospitals</span></li>
+        <li><span class="symbol">ASIANPAINT</span><span class="name">Asian Paints</span></li>
+        <li><span class="symbol">AXISBANK</span><span class="name">Axis Bank</span></li>
+        <li><span class="symbol">BAJAJ-AUTO</span><span class="name">Bajaj Auto</span></li>
+        <li><span class="symbol">BAJFINANCE</span><span class="name">Bajaj Finance</span></li>
+        <li><span class="symbol">BAJAJFINSV</span><span class="name">Bajaj Finserv</span></li>
+        <li><span class="symbol">BEL</span><span class="name">Bharat Electronics</span></li>
+        <li><span class="symbol">BHARTIARTL</span><span class="name">Bharti Airtel</span></li>
+        <li><span class="symbol">CIPLA</span><span class="name">Cipla</span></li>
+        <li><span class="symbol">COALINDIA</span><span class="name">Coal India</span></li>
+        <li><span class="symbol">DRREDDY</span><span class="name">Dr. Reddy's Laboratories</span></li>
+        <li><span class="symbol">EICHERMOT</span><span class="name">Eicher Motors</span></li>
+        <li><span class="symbol">GRASIM</span><span class="name">Grasim Industries</span></li>
+        <li><span class="symbol">HCLTECH</span><span class="name">HCLTech</span></li>
+        <li><span class="symbol">HDFCBANK</span><span class="name">HDFC Bank</span></li>
+        <li><span class="symbol">HDFCLIFE</span><span class="name">HDFC Life</span></li>
+        <li><span class="symbol">HEROMOTOCO</span><span class="name">Hero MotoCorp</span></li>
+        <li><span class="symbol">HINDALCO</span><span class="name">Hindalco Industries</span></li>
+        <li><span class="symbol">HINDUNILVR</span><span class="name">Hindustan Unilever</span></li>
+        <li><span class="symbol">ICICIBANK</span><span class="name">ICICI Bank</span></li>
+        <li><span class="symbol">INDUSINDBK</span><span class="name">IndusInd Bank</span></li>
+        <li><span class="symbol">INFY</span><span class="name">Infosys</span></li>
+        <li><span class="symbol">ITC</span><span class="name">ITC</span></li>
+        <li><span class="symbol">JIOFIN</span><span class="name">Jio Financial Services</span></li>
+        <li><span class="symbol">JSWSTEEL</span><span class="name">JSW Steel</span></li>
+        <li><span class="symbol">KOTAKBANK</span><span class="name">Kotak Mahindra Bank</span></li>
+        <li><span class="symbol">LT</span><span class="name">Larsen & Toubro</span></li>
+        <li><span class="symbol">M&M</span><span class="name">Mahindra & Mahindra</span></li>
+        <li><span class="symbol">MARUTI</span><span class="name">Maruti Suzuki</span></li>
+        <li><span class="symbol">NESTLEIND</span><span class="name">Nestlé India</span></li>
+        <li><span class="symbol">NTPC</span><span class="name">NTPC</span></li>
+        <li><span class="symbol">ONGC</span><span class="name">ONGC</span></li>
+        <li><span class="symbol">POWERGRID</span><span class="name">Power Grid Corporation</span></li>
+        <li><span class="symbol">RELIANCE</span><span class="name">Reliance Industries</span></li>
+        <li><span class="symbol">SBILIFE</span><span class="name">SBI Life Insurance Company</span></li>
+        <li><span class="symbol">SBIN</span><span class="name">State Bank of India</span></li>
+        <li><span class="symbol">SHREECEM</span><span class="name">Shree Cement</span></li>
+        <li><span class="symbol">SUNPHARMA</span><span class="name">Sun Pharmaceutical Industries</span></li>
+        <li><span class="symbol">TCS</span><span class="name">Tata Consultancy Services</span></li>
+        <li><span class="symbol">TATACONSUM</span><span class="name">Tata Consumer Products</span></li>
+        <li><span class="symbol">TATAMOTORS</span><span class="name">Tata Motors</span></li>
+        <li><span class="symbol">TATASTEEL</span><span class="name">Tata Steel</span></li>
+        <li><span class="symbol">TECHM</span><span class="name">Tech Mahindra</span></li>
+        <li><span class="symbol">TITAN</span><span class="name">Titan Company</span></li>
+        <li><span class="symbol">TRENT</span><span class="name">Trent</span></li>
+        <li><span class="symbol">ULTRACEMCO</span><span class="name">UltraTech Cement</span></li>
+        <li><span class="symbol">WIPRO</span><span class="name">Wipro</span></li>
+        <li><span class="symbol">ABB</span><span class="name">ABB India</span></li>
+        <li><span class="symbol">ADANIGREEN</span><span class="name">Adani Green Energy</span></li>
+        <li><span class="symbol">ADANIPOWER</span><span class="name">Adani Power</span></li>
+        <li><span class="symbol">AMBUJACEM</span><span class="name">Ambuja Cements</span></li>
+        <li><span class="symbol">BAJAJHLDNG</span><span class="name">Bajaj Holdings</span></li>
+        <li><span class="symbol">BAJAJHFL</span><span class="name">Bajaj Housing Finance</span></li>
+        <li><span class="symbol">BANKBARODA</span><span class="name">Bank of Baroda</span></li>
+        <li><span class="symbol">BPCL</span><span class="name">Bharat Petroleum</span></li>
+        <li><span class="symbol">BRITANNIA</span><span class="name">Britannia Industries</span></li>
+        <li><span class="symbol">BOSCHLTD</span><span class="name">Bosch</span></li>
+        <li><span class="symbol">CANBK</span><span class="name">Canara Bank</span></li>
+        <li><span class="symbol">CGPOWER</span><span class="name">CG Power & Industrial Solutions</span></li>
+        <li><span class="symbol">CHOLAFIN</span><span class="name">Cholamandalam</span></li>
+        <li><span class="symbol">DABUR</span><span class="name">Dabur</span></li>
+        <li><span class="symbol">DIVISLAB</span><span class="name">Divi’s Laboratories</span></li>
+        <li><span class="symbol">DLF</span><span class="name">DLF</span></li>
+        <li><span class="symbol">DMART</span><span class="name">DMart</span></li>
+        <li><span class="symbol">GAIL</span><span class="name">GAIL</span></li>
+        <li><span class="symbol">GODREJCP</span><span class="name">Godrej Consumer Products</span></li>
+        <li><span class="symbol">HAVELLS</span><span class="name">Havells</span></li>
+        <li><span class="symbol">HAL</span><span class="name">Hindustan Aeronautics</span></li>
+        <li><span class="symbol">HYUNDAI</span><span class="name">Hyundai Motor India</span></li>
+        <li><span class="symbol">ICICIGI</span><span class="name">ICICI Lombard Gen Insurance</span></li>
+        <li><span class="symbol">ICICIPRULI</span><span class="name">ICICI Prudential Life Insurance</span></li>
+        <li><span class="symbol">INDHOTEL</span><span class="name">Indian Hotels Company</span></li>
+        <li><span class="symbol">IOC</span><span class="name">Indian Oil Corporation</span></li>
+        <li><span class="symbol">INDIGO</span><span class="name">IndiGo</span></li>
+        <li><span class="symbol">NAUKRI</span><span class="name">Info Edge</span></li>
+        <li><span class="symbol">IRFC</span><span class="name">IRFC</span></li>
+        <li><span class="symbol">JINDALSTEL</span><span class="name">Jindal Steel & Power</span></li>
+        <li><span class="symbol">JSWENERGY</span><span class="name">JSW Energy</span></li>
+        <li><span class="symbol">LICI</span><span class="name">Life Insurance Corporation</span></li>
+        <li><span class="symbol">LODHA</span><span class="name">Lodha</span></li>
+        <li><span class="symbol">LTIM</span><span class="name">LTIMindtree</span></li>
+        <li><span class="symbol">PIDILITIND</span><span class="name">Pidilite Industries</span></li>
+        <li><span class="symbol">PFC</span><span class="name">Power Finance Corporation</span></li>
+        <li><span class="symbol">PNB</span><span class="name">Punjab National Bank</span></li>
+        <li><span class="symbol">RECLTD</span><span class="name">REC</span></li>
+        <li><span class="symbol">MOTHERSON</span><span class="name">Samvardhana Motherson</span></li>
+        <li><span class="symbol">SIEMENS</span><span class="name">Siemens</span></li>
+        <li><span class="symbol">SWIGGY</span><span class="name">Swiggy</span></li>
+        <li><span class="symbol">TATAPOWER</span><span class="name">Tata Power</span></li>
+        <li><span class="symbol">TORNTPHARM</span><span class="name">Torrent Pharmaceuticals</span></li>
+        <li><span class="symbol">TVSMOTOR</span><span class="name">TVS Motor Company</span></li>
+        <li><span class="symbol">UNITDSPR</span><span class="name">United Spirits</span></li>
+        <li><span class="symbol">VBL</span><span class="name">Varun Beverages</span></li>
+        <li><span class="symbol">VEDL</span><span class="name">Vedanta</span></li>
+        <li><span class="symbol">ZYDUSLIFE</span><span class="name">Zydus Lifesciences</span></li>
+      </ul>
+    </details>
+    <details class="stock-box">
+      <summary>Top 100 Overseas Stocks (US)</summary>
+      <ul class="stock-list">
+        <li><span class="symbol">AAPL</span><span class="name">Apple Inc.</span></li>
+        <li><span class="symbol">ABBV</span><span class="name">AbbVie</span></li>
+        <li><span class="symbol">ABT</span><span class="name">Abbott Laboratories</span></li>
+        <li><span class="symbol">ACN</span><span class="name">Accenture</span></li>
+        <li><span class="symbol">ADBE</span><span class="name">Adobe Inc.</span></li>
+        <li><span class="symbol">AIG</span><span class="name">American Int’l Group</span></li>
+        <li><span class="symbol">AMD</span><span class="name">Advanced Micro Devices</span></li>
+        <li><span class="symbol">AMGN</span><span class="name">Amgen</span></li>
+        <li><span class="symbol">AMT</span><span class="name">American Tower</span></li>
+        <li><span class="symbol">AMZN</span><span class="name">Amazon.com</span></li>
+        <li><span class="symbol">AVGO</span><span class="name">Broadcom Inc.</span></li>
+        <li><span class="symbol">AXP</span><span class="name">American Express</span></li>
+        <li><span class="symbol">BA</span><span class="name">The Boeing Company</span></li>
+        <li><span class="symbol">BAC</span><span class="name">Bank of America</span></li>
+        <li><span class="symbol">BK</span><span class="name">The Bank of New York Mellon</span></li>
+        <li><span class="symbol">BLK</span><span class="name">BlackRock</span></li>
+        <li><span class="symbol">BMY</span><span class="name">Bristol Myers Squibb</span></li>
+        <li><span class="symbol">BRK.B</span><span class="name">Berkshire Hathaway (Cl B)</span></li>
+        <li><span class="symbol">C</span><span class="name">Citigroup Inc.</span></li>
+        <li><span class="symbol">CAT</span><span class="name">Caterpillar Inc.</span></li>
+        <li><span class="symbol">CHTR</span><span class="name">Charter Communications</span></li>
+        <li><span class="symbol">CL</span><span class="name">Colgate-Palmolive</span></li>
+        <li><span class="symbol">CMCSA</span><span class="name">Comcast Corporation</span></li>
+        <li><span class="symbol">COF</span><span class="name">Capital One Financial</span></li>
+        <li><span class="symbol">COP</span><span class="name">ConocoPhillips</span></li>
+        <li><span class="symbol">COST</span><span class="name">Costco Wholesale</span></li>
+        <li><span class="symbol">CRM</span><span class="name">Salesforce Inc.</span></li>
+        <li><span class="symbol">CSCO</span><span class="name">Cisco Systems</span></li>
+        <li><span class="symbol">CVX</span><span class="name">Chevron Corp.</span></li>
+        <li><span class="symbol">DHR</span><span class="name">Danaher Corporation</span></li>
+        <li><span class="symbol">DIS</span><span class="name">The Walt Disney Company</span></li>
+        <li><span class="symbol">DOW</span><span class="name">Dow Inc.</span></li>
+        <li><span class="symbol">DUK</span><span class="name">Duke Energy</span></li>
+        <li><span class="symbol">EMR</span><span class="name">Emerson Electric</span></li>
+        <li><span class="symbol">GE</span><span class="name">GE Aerospace</span></li>
+        <li><span class="symbol">GILD</span><span class="name">Gilead Sciences</span></li>
+        <li><span class="symbol">GOOG</span><span class="name">Alphabet Inc. (Cl C)</span></li>
+        <li><span class="symbol">GOOGL</span><span class="name">Alphabet Inc. (Cl A)</span></li>
+        <li><span class="symbol">GS</span><span class="name">Goldman Sachs Group</span></li>
+        <li><span class="symbol">HD</span><span class="name">The Home Depot</span></li>
+        <li><span class="symbol">HON</span><span class="name">Honeywell International</span></li>
+        <li><span class="symbol">IBM</span><span class="name">International Business Machines</span></li>
+        <li><span class="symbol">INTC</span><span class="name">Intel Corp.</span></li>
+        <li><span class="symbol">JNJ</span><span class="name">Johnson & Johnson</span></li>
+        <li><span class="symbol">JPM</span><span class="name">JPMorgan Chase & Co.</span></li>
+        <li><span class="symbol">KO</span><span class="name">The Coca-Cola Company</span></li>
+        <li><span class="symbol">LLY</span><span class="name">Eli Lilly & Co.</span></li>
+        <li><span class="symbol">LMT</span><span class="name">Lockheed Martin Corp.</span></li>
+        <li><span class="symbol">LOW</span><span class="name">Lowe's Companies</span></li>
+        <li><span class="symbol">MA</span><span class="name">Mastercard Inc.</span></li>
+        <li><span class="symbol">MCD</span><span class="name">McDonald's Corp.</span></li>
+        <li><span class="symbol">MDT</span><span class="name">Medtronic PLC</span></li>
+        <li><span class="symbol">META</span><span class="name">Meta Platforms Inc.</span></li>
+        <li><span class="symbol">MMM</span><span class="name">3M Co.</span></li>
+        <li complex... (continued for all 100 entries) ... /></ul>    </details>    <table>      <tr>        <th>Current Price</th> ... etc
+  </div>
+    <table>
+      <tr>
+        <th>Current Price</th>
+        <th>Change</th>
+        <th>Percent Change</th>
+        <th>High</th>
+        <th>Low</th>
+        <th>Open</th>
+        <th>Previous Close</th>
+        <th>Timestamp</th>
+      </tr>
+      <tr>
+        <td>${data.c}</td>
+        <td>${data.d}</td>
+        <td>${data.dp}</td>
+        <td>${data.h}</td>
+        <td>${data.l}</td>
+        <td>${data.o}</td>
+        <td>${data.pc}</td>
+        <td>${time}</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

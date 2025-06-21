@@ -1,0 +1,23 @@
+package in.ram.restcontroller;
+
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import in.ram.model.StockData;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@RestController
+@RequestMapping("/api/stock/")
+public class StockRestContoller {
+
+	@GetMapping("/data")
+	public String fetDetails() {
+		WebClient client = WebClient.create();
+
+		client.get().uri("").retrieve().bodyToMono(StockData.class).block();
+		return new String();
+	}
+
+}

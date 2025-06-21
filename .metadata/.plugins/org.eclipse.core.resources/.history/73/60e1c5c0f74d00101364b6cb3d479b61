@@ -1,0 +1,43 @@
+package in.ram.Controller;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import in.ram.feign.FeignClientApp;
+import in.ram.model.StockData;
+import jakarta.servlet.http.HttpServletRequest;
+
+@Controller
+public class StockController {
+
+	@Autowired
+	private FeignClientApp feign;
+
+	@GetMapping("/")
+	public String loadHomePage() {
+		return "index";
+	}
+
+	@GetMapping("/search")
+	public String getMethodName(HttpServletRequest request, Map<String, Object> model) {
+		String s = request.getParameter("stockName");
+
+		StockData data;
+		ResponseEntity<?> entity;
+		entity = feign.getData(s);
+
+		if (entity.getStatusCodeValue() == 404)
+			model.put("data", "Check Stock Name (Symbol)");
+		else
+			model.put("data", entity);
+		
+		return "index";
+
+	}
+
+}

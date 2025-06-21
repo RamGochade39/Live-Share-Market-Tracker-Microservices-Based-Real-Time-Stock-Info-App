@@ -1,0 +1,22 @@
+package in.ram.Controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+@Controller
+public class StockController {
+
+	@GetMapping("/")
+	public String loadHomePage() {
+		return "index";
+	}
+
+	@GetMapping("/search")
+	public String getMethodName(HttpServletRequest request) {
+		System.out.println(request.getParameter("stockName"));
+		return new String();
+	}
+
+}

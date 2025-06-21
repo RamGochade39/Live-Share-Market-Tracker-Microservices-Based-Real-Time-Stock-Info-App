@@ -1,0 +1,61 @@
+package in.ram.Controller;
+
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import in.ram.model.StockData;
+import in.ram.service.StockServiceCaller;
+import jakarta.servlet.http.HttpServletRequest;
+
+@Controller
+public class StockController {
+
+	@Autowired
+	private StockServiceCaller service;
+
+	@GetMapping("/")
+	public String loadHomePage() {
+		return "index";
+	}
+
+	@GetMapping("/search")
+	public String getMethodName(HttpServletRequest request, Map<String, Object> model) {
+		String s = request.getParameter("stockName").toUpperCase();
+
+		
+		StockData d = service.getFromApi(s);
+
+		if(d.getC() != 0) {
+		long epochSeconds = 1750449600L;
+
+		// Create an Instant from epoch seconds
+		Instant instant = Instant.ofEpochSecond(epochSeconds);
+
+		// Define formatter
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z");
+
+		// UTC
+		ZonedDateTime utcTime = instant.atZone(ZoneId.of("UTC"));
+		System.out.println("UTC Time: " + utcTime.format(fmt));
+
+		// IST (Asia/Kolkata)
+		ZonedDateTime istTime = instant.atZone(ZoneId.of("Asia/Kolkata"));
+
+		istTime.format(fmt);
+		model.put("data", d);
+		model.put("time", istTime.format(fmt));
+		return "index";
+		}
+		model.put("data", d);
+		return "index";
+
+	}
+
+}

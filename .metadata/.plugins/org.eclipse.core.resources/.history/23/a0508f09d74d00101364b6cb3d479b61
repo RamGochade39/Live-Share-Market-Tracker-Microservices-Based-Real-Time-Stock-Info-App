@@ -1,0 +1,31 @@
+package in.ram.restcontroller;
+
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import in.ram.model.StockData;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@RestController
+public class StockRestContoller {
+
+	@GetMapping("/data")
+	public ResponseEntity<StockData> getDetails() {
+		WebClient client = WebClient.create();
+
+		String apiKey = "d1akit1r01qltin20ksgd1akit1r01qltin20kt0";
+
+		String url = "https://finnhub.io/api/v1/quote?symbol={companyName}&token=d1akit1r01qltin20ksgd1akit1r01qltin20kt0";
+
+		String companySymbol="";
+		StockData data = client.get().uri(url, companySymbol).retrieve().bodyToMono(StockData.class).block();
+		System.out.println(data);
+
+		return new ResponseEntity<StockData>(data, HttpStatus.OK);
+	}
+
+}

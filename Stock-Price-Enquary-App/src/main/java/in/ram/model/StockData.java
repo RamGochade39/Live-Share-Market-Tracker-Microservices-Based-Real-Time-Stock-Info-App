@@ -1,0 +1,20 @@
+package in.ram.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class StockData {
+
+	private double c; // current price
+	private double d; // change
+	private double dp; // percent change
+	private double h; // high
+	private double l; // low
+	private double o; // open
+	private double pc; // previous close
+	private long t; // timestamp
+}

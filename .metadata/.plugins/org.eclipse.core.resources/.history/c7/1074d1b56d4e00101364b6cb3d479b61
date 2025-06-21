@@ -1,0 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Stock Search</title>
+</head>
+<body>
+	<h2>Enter Stock Name</h2>
+	<form action="search" method="get">
+		<label for="stockName">Stock Name:</label> <input type="text"
+			id="stockName" name="stockName" required> <br> <br>
+		<input type="submit" value="Get Stock Info">
+	</form>
+	<table>
+		<tr>
+			<th>Current Price</th>
+			<th>Change</th>
+			<th>Percent Change</th>
+			<th>High</th>
+			<th>Low</th>
+			<th>Open</th>
+			<th>Previous Close</th>
+			<th>Timestamp</th>
+		</tr>
+	</table>
+
+</body>
+</html>

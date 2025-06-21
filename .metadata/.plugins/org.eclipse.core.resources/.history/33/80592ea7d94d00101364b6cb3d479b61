@@ -1,0 +1,15 @@
+package in.ram.service;
+
+import org.springframework.stereotype.Service;
+
+import in.ram.model.StockData;
+
+@Service
+public class StockServiceCaller {
+
+	public StockData getFromApi() {
+		
+		
+		return null;
+	}
+}

@@ -1,0 +1,201 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stock Search</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 2rem;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 90%;
+      text-align: center;
+      overflow-x: auto;
+      margin-bottom: 2rem;
+    }
+    details.stock-box {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 0.5rem 1rem;
+      margin-bottom: 1rem;
+    }
+    details.stock-box summary {
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0.5rem 0;
+    }
+    details.stock-box[open] summary {
+      color: #007bff;
+    }
+    .stock-list {
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      text-align: left;
+    }
+    .stock-list li {
+      display: flex;
+      align-items: baseline;
+      padding: 0.3rem 0;
+      font-size: 0.95rem;
+    }
+    .stock-list li span.symbol {
+      font-weight: bold;
+      min-width: 10ch;
+      margin-right: 1rem;
+    }
+    .stock-list li span.name {
+      flex: 1;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 0 auto 1rem;
+    }
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      text-align: center;
+      word-wrap: break-word;
+      white-space: normal;
+    }
+    th {
+      background: #007bff;
+      color: #fff;
+    }
+    tbody tr:nth-child(odd) {
+      background: #f9f9f9;
+    }
+    input[type="text"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      min-width: 150px;
+    }
+    input[type="submit"] {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      background: #007bff;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    input[type="submit"]:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter Stock Name</h2>
+    <form action="search" method="get">
+      <label for="stockName">Stock Name:</label>
+      <input type="text" id="stockName" name="stockName" required>
+      <input type="submit" value="Get Stock Info">
+    </form>
+
+
+    <details class="stock-box">
+      <summary>Top 100 Overseas Stocks (US)</summary>
+      <ul class="stock-list">
+        <li><span class="symbol">AAPL</span><span class="name">Apple Inc.</span></li>
+        <li><span class="symbol">ABBV</span><span class="name">AbbVie</span></li>
+        <li><span class="symbol">ABT</span><span class="name">Abbott Laboratories</span></li>
+        <li><span class="symbol">ACN</span><span class="name">Accenture</span></li>
+        <li><span class="symbol">ADBE</span><span class="name">Adobe Inc.</span></li>
+        <li><span class="symbol">AIG</span><span class="name">American Int’l Group</span></li>
+        <li><span class="symbol">AMD</span><span class="name">Advanced Micro Devices</span></li>
+        <li><span class="symbol">AMGN</span><span class="name">Amgen</span></li>
+        <li><span class="symbol">AMT</span><span class="name">American Tower</span></li>
+        <li><span class="symbol">AMZN</span><span class="name">Amazon.com</span></li>
+        <li><span class="symbol">AVGO</span><span class="name">Broadcom Inc.</span></li>
+        <li><span class="symbol">AXP</span><span class="name">American Express</span></li>
+        <li><span class="symbol">BA</span><span class="name">The Boeing Company</span></li>
+        <li><span class="symbol">BAC</span><span class="name">Bank of America</span></li>
+        <li><span class="symbol">BK</span><span class="name">The Bank of New York Mellon</span></li>
+        <li><span class="symbol">BLK</span><span class="name">BlackRock</span></li>
+        <li><span class="symbol">BMY</span><span class="name">Bristol Myers Squibb</span></li>
+        <li><span class="symbol">BRK.B</span><span class="name">Berkshire Hathaway (Cl B)</span></li>
+        <li><span class="symbol">C</span><span class="name">Citigroup Inc.</span></li>
+        <li><span class="symbol">CAT</span><span class="name">Caterpillar Inc.</span></li>
+        <li><span class="symbol">CHTR</span><span class="name">Charter Communications</span></li>
+        <li><span class="symbol">CL</span><span class="name">Colgate-Palmolive</span></li>
+        <li><span class="symbol">CMCSA</span><span class="name">Comcast Corporation</span></li>
+        <li><span class="symbol">COF</span><span class="name">Capital One Financial</span></li>
+        <li><span class="symbol">COP</span><span class="name">ConocoPhillips</span></li>
+        <li><span class="symbol">COST</span><span class="name">Costco Wholesale</span></li>
+        <li><span class="symbol">CRM</span><span class="name">Salesforce Inc.</span></li>
+        <li><span class="symbol">CSCO</span><span class="name">Cisco Systems</span></li>
+        <li><span class="symbol">CVX</span><span class="name">Chevron Corp.</span></li>
+        <li><span class="symbol">DHR</span><span class="name">Danaher Corporation</span></li>
+        <li><span class="symbol">DIS</span><span class="name">The Walt Disney Company</span></li>
+        <li><span class="symbol">DOW</span><span class="name">Dow Inc.</span></li>
+        <li><span class="symbol">DUK</span><span class="name">Duke Energy</span></li>
+        <li><span class="symbol">EMR</span><span class="name">Emerson Electric</span></li>
+        <li><span class="symbol">GE</span><span class="name">GE Aerospace</span></li>
+        <li><span class="symbol">GILD</span><span class="name">Gilead Sciences</span></li>
+        <li><span class="symbol">GOOG</span><span class="name">Alphabet Inc. (Cl C)</span></li>
+        <li><span class="symbol">GOOGL</span><span class="name">Alphabet Inc. (Cl A)</span></li>
+        <li><span class="symbol">GS</span><span class="name">Goldman Sachs Group</span></li>
+        <li><span class="symbol">HD</span><span class="name">The Home Depot</span></li>
+        <li><span class="symbol">HON</span><span class="name">Honeywell International</span></li>
+        <li><span class="symbol">IBM</span><span class="name">International Business Machines</span></li>
+        <li><span class="symbol">INTC</span><span class="name">Intel Corp.</span></li>
+        <li><span class="symbol">JNJ</span><span class="name">Johnson & Johnson</span></li>
+        <li><span class="symbol">JPM</span><span class="name">JPMorgan Chase & Co.</span></li>
+        <li><span class="symbol">KO</span><span class="name">The Coca-Cola Company</span></li>
+        <li><span class="symbol">LLY</span><span class="name">Eli Lilly & Co.</span></li>
+        <li><span class="symbol">LMT</span><span class="name">Lockheed Martin Corp.</span></li>
+        <li><span class="symbol">LOW</span><span class="name">Lowe's Companies</span></li>
+        <li><span class="symbol">MA</span><span class="name">Mastercard Inc.</span></li>
+        <li><span class="symbol">MCD</span><span class="name">McDonald's Corp.</span></li>
+        <li><span class="symbol">MDT</span><span class="name">Medtronic PLC</span></li>
+        <li><span class="symbol">META</span><span class="name">Meta Platforms Inc.</span></li>
+        <li><span class="symbol">MMM</span><span class="name">3M Co.</span></li>
+        <li complex... (continued for all 100 entries) ... /></ul>    </details>    <table>      <tr>        <th>Current Price</th> ... etc
+  </div>
+    <table>
+      <tr>
+        <th>Current Price</th>
+        <th>Change</th>
+        <th>Percent Change</th>
+        <th>High</th>
+        <th>Low</th>
+        <th>Open</th>
+        <th>Previous Close</th>
+        <th>Timestamp</th>
+      </tr>
+      <tr>
+        <td>${data.c}</td>
+        <td>${data.d}</td>
+        <td>${data.dp}</td>
+        <td>${data.h}</td>
+        <td>${data.l}</td>
+        <td>${data.o}</td>
+        <td>${data.pc}</td>
+        <td>${time}</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

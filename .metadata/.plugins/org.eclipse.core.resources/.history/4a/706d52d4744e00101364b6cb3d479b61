@@ -1,0 +1,160 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stock Search</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 2rem;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 90%;
+      width: auto;
+      text-align: center;
+      overflow-x: auto;
+      margin-bottom: 2rem;
+    }
+    details.stock-box {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 0.5rem 1rem;
+      margin-bottom: 1rem;
+    }
+    details.stock-box summary {
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0.5rem 0;
+    }
+    details.stock-box[open] summary {
+      color: #007bff;
+    }
+    .stock-list {
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      text-align: left;
+    }
+    .stock-list li {
+      display: flex;
+      align-items: baseline;
+      padding: 0.3rem 0;
+      font-size: 0.95rem;
+    }
+    .stock-list li span.symbol {
+      font-weight: bold;
+      min-width: 10ch;
+      margin-right: 1rem;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 0 auto 1rem;
+    }
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      text-align: center;
+      word-wrap: break-word;
+      white-space: normal;
+    }
+    th {
+      background: #007bff;
+      color: #fff;
+    }
+    tbody tr:nth-child(odd) {
+      background: #f9f9f9;
+    }
+    input[type="text"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      min-width: 150px;
+      width: auto;
+    }
+    input[type="submit"] {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      background: #007bff;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    input[type="submit"]:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter Stock Name</h2>
+    <form action="search" method="get">
+      <label for="stockName">Stock Name:</label>
+      <input type="text" id="stockName" name="stockName" required>
+      <input type="submit" value="Get Stock Info">
+    </form>
+
+    <!-- Subservice: Stock Symbol Lists -->
+    <details class="stock-box" open>
+      <summary>Top 100 Indian Stocks (NSE)</summary>
+      <ul class="stock-list">
+        <li><span class="symbol">ADANIENT</span> => Adani Enterprises</li>
+        <li><span class="symbol">ADANIPORTS</span> => Adani Ports & SEZ</li>
+        <li><span class="symbol">APOLLOHOSP</span> => Apollo Hospitals</li>
+        <!-- ... continue list ... -->
+      </ul>
+    </details>
+    <details class="stock-box">
+      <summary>Top 100 Overseas Stocks (US)</summary>
+      <ul class="stock-list">
+        <li><span class="symbol">AAPL</span> => Apple Inc.</li>
+        <li><span class="symbol">ABBV</span> => AbbVie</li>
+        <li><span class="symbol">ABT</span> => Abbott Laboratories</li>
+        <!-- ... continue list ... -->
+      </ul>
+    </details>
+
+    <table>
+      <tr>
+        <th>Current Price</th>
+        <th>Change</th>
+        <th>Percent Change</th>
+        <th>High</th>
+        <th>Low</th>
+        <th>Open</th>
+        <th>Previous Close</th>
+        <th>Timestamp</th>
+      </tr>
+      <tr>
+        <td>${data.c}</td>
+        <td>${data.d}</td>
+        <td>${data.dp}</td>
+        <td>${data.h}</td>
+        <td>${data.l}</td>
+        <td>${data.o}</td>
+        <td>${data.pc}</td>
+        <td>${time}</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>
